@@ -1,0 +1,8 @@
+#filters table td{
+	border-bottom:none;
+}
+
+#filters table input{
+	margin-left:50px;
+	width:300px;
+}
