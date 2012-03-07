@@ -1,8 +1,20 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+	
+	function removeDir($path)
+	{
+		if ($objs = glob($path."/*")) {
+			foreach($objs as $obj) {
+				is_dir($obj) ? removeDirRec($obj) : unlink($obj);
+			}
+		}
+		rmdir($path);
+	}
+
+
 class Module_Shipping_Service extends Module {
 
-	public $version = '1.0';
+	public $version = '1.0.1';
 
 	private $shipping_service_settings = array(
 	
@@ -68,13 +80,21 @@ class Module_Shipping_Service extends Module {
 		
 		$path = dirname(__FILE__);
 		
-		if( file_exists($path.'/database/shipping_service_db.sql') && file_exists($path.'/database/shipping_status_db.sql') ){
+		//.php - а ларчик то просто открывался :)
+		//.php - because .sql and other are not copied at installation
+		
+		if( file_exists($path.'/database/shipping_service_db.php') && file_exists($path.'/database/shipping_status_db.php') ){
 
-			$shipping_service_db = file_get_contents($path.'/database/shipping_service_db.sql');
-			$shipping_status_db  = file_get_contents($path.'/database/shipping_status_db.sql');
+			$shipping_service_db = file_get_contents($path.'/database/shipping_service_db.php');
+			$shipping_status_db  = file_get_contents($path.'/database/shipping_status_db.php');
 			
 			$shipping_status_db = preg_replace('@\{DATABASE_NAME\}@',$this->db->dbprefix('shipping_status'),$shipping_status_db);
 			$shipping_service_db = preg_replace('@\{DATABASE_NAME\}@',$this->db->dbprefix('shipping_service'),$shipping_service_db);
+			
+			removeDir($path.'/database'); 
+			/*
+			/I think what this folder may remove
+			*/
 			
 			if($this->db->query($shipping_service_db) && $this->db->query($shipping_status_db)){
 			
@@ -89,7 +109,7 @@ class Module_Shipping_Service extends Module {
 			return FALSE;
 		}else{
 		
-			log_message('error','module:shipping_service: The file shipping_service_db.sql or shipping_status_sql missing');
+			log_message('error','module:shipping_service: The file shipping_service_db.php or shipping_status_sql missing');
 			return FALSE;
 		}
 	}
