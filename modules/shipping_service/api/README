@@ -1,0 +1,30 @@
+API для добавления и проверки статуса заказаю
+
+Createorder
+	Форма добавления заказа
+	Запрос:
+		nsp_customer - ФИО заказчика;
+		phone_customer - Телефон заказчика;
+		email_customer - Email заказчика;
+		address_customer - Адрес забора
+		address_shipping - Адрес доставки
+		investment_customer - Описание вложения
+		nsp_shipping - ФИО получателя
+		phone_shipping - Телефон получателя
+		note_customer - Примечание
+		price_shipping - Цена доставки
+		email - Электронная почта
+		password - Проль
+	Ответ:
+		JSON объект.
+		status - тип ответа.
+		result - код заказа
+
+Checkstatus
+	Проверка статуса заказа
+	Запрос:
+		url+id_заказа
+	Ответ:
+		JSON объект
+		status - тип ответа
+		result - статус
