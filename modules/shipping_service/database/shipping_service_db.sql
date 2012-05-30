@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `{DATABASE_NAME}` (
   `price_shipping` varchar(16) NOT NULL,
   `address_shipping` VARCHAR( 256 ) NOT NULL,
   `note_status` VARCHAR( 512 ) NOT NULL,
-  `cost_shipping` VARCHAR( 10 ) NOT NULL DEFAULT  '0',
+  `cost_shipping` VARCHAR( 10 ) NOT NULL DEFAULT  '0' 
 
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

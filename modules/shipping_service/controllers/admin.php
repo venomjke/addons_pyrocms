@@ -138,23 +138,32 @@ class Admin extends Admin_Controller
 			$orders = $this->shipping_service_m->get_all();
 			
 			$orders_array = array(
-				array( 'Код заказа' => '', 'Ф.И.О заказчика' => '', 'Адрес заказчика' =>'', 'Вложение' => '','Стоимость доставки' => '', 'Телефон заказчика' => '', 'Ф.И.О получателя' => '','Телефон получателя' => '', 'Адрес получателя' => '', 'Статус заказа' => '', 'Стоимость заказа'  => '')
+				array( 'Код заказа' => '', 
+					   'Стоимость заказа'=>'', 
+					   'Статус'=>'', 
+					   'Примечание к статусу'=>'',
+					   'Адрес доставки'=>'',
+					   'Телефон доставки'=>'',
+					   'Ф.И.О Получателя' => '', 
+					   'Вложение'=>'',
+					   'Стоимость доставки'=>'',
+					   'Ф.И.О заказчика'=>''
+				)
 			);
 			
 			foreach($orders as $order) {
 			
 				$row = array();
 				$row[] = $order->id;
-				$row[] = $order->nsp_customer;
-				$row[] = $order->address_customer;
+				$row[] = $order->price_shipping;
+				$row[] = $order->status_name;
+				$row[] = $order->note_status;
+				$row[] = $order->address_shipping;
+				$row[] = $order->phone_shipping;
+				$row[] = $order->nsp_shipping;
 				$row[] = $order->investment_customer;
 				$row[] = $order->cost_shipping;
-				$row[] = $order->phone_customer;
-				$row[] = $order->nsp_shipping;
-				$row[] = $order->phone_shipping;
-				$row[] = $order->address_shipping;
-				$row[] = $order->id_status?$this->shipping_status_m->get_status_name($order->id):$this->shipping_status_m->get_default_status();
-				$row[] = $order->price_shipping;
+				$row[] = $order->nsp_customer;
 				$orders_array[] = $row; 
 			}
 			
